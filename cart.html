@@ -1,0 +1,125 @@
+<html>
+    <body>
+        <nav style="display: flex;justify-content: space-between;background-color:darkslategrey;align-items: center;border-radius: 30px;overflow: hidden;">
+            <a href="index.php"><img src="jv.png" alt="logo" style="height: 60px;width:120px;padding: 10px;"></a>
+            
+            <ul style="display: flex;justify-content:space-between;list-style: none;">
+                <li> <a href=shop.php style="padding: 10px ;display: inline-block;color: orangered;font-size: 25px;text-decoration: none;font-family:verdana">Shop</a></li>
+                <li> <a href=cart.html style="padding: 10px 40px;display: inline-block;color: orangered;font-size: 25px;text-decoration: none;font-family:verdana">Cart</a></li>
+                <li> <a href=index.php style="padding: 10px ;display: inline-block;color: orangered;font-size: 25px;text-decoration: none;font-family:verdana">About</a></li>
+            </ul><div style="display:flex;">
+            <a style="padding: 10px 20px;" href="signup.html"><button style="width: 100px;height: 40px;display: inline-block;border: none;border-radius: 20px;background-color:orangered;color: wheat;font-size: 18px;font-family:verdana" onclick="signup.html">signup</button></a>
+            <p>|</p>
+            <a style="padding: 10px 20px;" href="login.html"><button style="width: 100px;height: 40px;display: inline-block;border: none;border-radius: 20px;background-color:orangered;color: wheat;font-size: 18px;font-family:verdana" onclick="login.html">login</button></a>
+    </div>
+          </nav>
+        <div id="cart-display"></div>
+        <footer style=" display: flex;justify-content: space-between;background-color:darkslategrey;align-items: center;border-radius: 30px;overflow: hidden;flex-direction: column;">
+            <p>&copy; 2023 all rights reserved </p>
+        </footer>
+        <script >
+            updateCartDisplay();
+        function removeFromCart(itemName) {
+  // Get the existing cart data from session storage
+  var cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+  // Loop through the cart and remove the item with the matching name
+  for (var i = 0; i < cart.length; i++) {
+      if (cart[i].name === itemName) {
+          cart.splice(i, 1);
+          break;
+      }
+  }
+
+  // Save the updated cart data to session storage
+  sessionStorage.setItem('cart', JSON.stringify(cart));
+
+  // Refresh the cart display
+  updateCartDisplay();
+}
+
+
+        function updateCartDisplay() {
+            // Get the cart data from session storage
+            var cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+          
+            // Update the cart display HTML
+            var cartDisplay = document.getElementById('cart-display');
+            cartDisplay.innerHTML = '';
+          
+            for (var i = 0; i < cart.length; i++) {
+                var item = cart[i];
+          
+                // Create a new cart item element
+                var cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.style="display:inline-block;padding: 10px 10px;background-color: darkcyan;margin: 20px;border-radius:20px";
+          
+                // Add the item name, quantity, and total price to the cart item element
+                var nameSpan = document.createElement('span');
+                nameSpan.className = 'name';
+                nameSpan.innerHTML = item.name;
+                nameSpan.style="padding:10px;font-size:30px;font-family:verdana";
+                cartItem.appendChild(nameSpan);
+          
+                
+          
+                var priceSpan = document.createElement('span');
+                priceSpan.className = 'price';
+                priceSpan.style="padding:10px;font-size:15px;font-family:verdana"
+                priceSpan.innerHTML = "  "+'$' + item.totalPrice.toFixed(2);
+                cartItem.appendChild(priceSpan);
+          
+                // Add a remove button to the cart item element
+                var removeButton = document.createElement('button');
+                removeButton.innerHTML = 'Remove';
+                removeButton.onclick = (function(itemName) {
+                    return function() {
+                        removeFromCart(itemName);
+                    };
+                })(item.name);
+                cartItem.appendChild(removeButton);
+                var buyButton = document.createElement('button');
+                removeButton.innerHTML = 'buy';
+                removeButton.style="width: 100px;height: 40px;display: inline-block;border: none;border-radius: 20px;background-color:orangered;color: wheat;font-size: 18px;font-family:verdana";
+                               removeButton.onclick = (function(itemName) {
+                    return function() {
+                        alert("it will be delivered to your home");
+                        removeFromCart(itemName);
+                    };
+                })(item.name);
+                cartItem.appendChild(removeButton);
+          
+                // Add the cart item element to the cart display
+                cartDisplay.appendChild(cartItem);
+              }
+          
+              // If the cart is empty, display a message
+              if (cart.length === 0) {
+                  var emptyMessage = document.createElement('div');
+                  emptyMessage.className = 'empty-message';
+                  emptyMessage.innerHTML = 'Your cart is empty.';
+                  cartDisplay.appendChild(emptyMessage);
+              }
+          }
+          function removeFromCart(itemName) {
+  // Get the existing cart data from session storage
+  var cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+  // Loop through the cart and remove the item with the matching name
+  for (var i = 0; i < cart.length; i++) {
+      if (cart[i].name === itemName) {
+          cart.splice(i, 1);
+          break;
+      }
+  }
+
+  // Save the updated cart data to session storage
+  sessionStorage.setItem('cart', JSON.stringify(cart));
+
+  // Refresh the cart display
+  updateCartDisplay();
+}
+          </script>
+    </body>
+</html>

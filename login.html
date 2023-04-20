@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+  </head>
+  
+  <body style="background-image: url(log.jpg);background-repeat: no-repeat;display: flex ;background-size: cover;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+    
+    <nav style="display: flex;justify-content: space-between;background-color:darkslategrey;align-items: center;border-radius: 30px;overflow: hidden;">
+      
+      <a href="index.php"><img src="jv.png" alt="logo" style="height: 60px;width:120px;padding: 10px;"></a><ul style="display: flex;justify-content:space-between;list-style: none;">
+          <li> <a href=shop.php style="padding: 10px ;display: inline-block;color: orangered;font-size: 25px;text-decoration: none;font-family:verdana">Shop</a></li>
+          <li> <a href=cart.html style="padding: 10px 40px;display: inline-block;color: orangered;font-size: 25px;text-decoration: none;font-family:verdana">Cart</a></li>
+          <li> <a href=index.php style="padding: 10px ;display: inline-block;color: orangered;font-size: 25px;text-decoration: none;font-family:verdana">About</a></li>
+      </ul><div style="display:flex;">
+      <a style="padding: 10px 20px;" href="signup.html"><button style="width: 100px;height: 40px;display: inline-block;border: none;border-radius: 20px;background-color:orangered;color: wheat;font-size: 18px;font-family:verdana" onclick="singup.html">signup</button></a>
+      <p>|</p>
+      <a style="padding: 10px 20px;" href="login.html"><button style="width: 100px;height: 40px;display: inline-block;border: none;border-radius: 20px;background-color:orangered;color: wheat;font-size: 18px;font-family:verdana" onclick="login.html">login</button></a>
+</div>
+    </nav>
+    <h1 style="text-align: center;">LOGIN</h1>
+    <form method="post" action="login.php" onsubmit="return validateLogin()" style="display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: antiquewhite;padding: 20px 20px;">
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" style="width:200px;height:20px" required>
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" style="width:200px;height:20px" required>
+      <br>
+      <input type="submit" value="Login" style="width:100px;height:20px">
+    </form>
+
+    <script>
+      function validateLogin() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        // Regular expression for alphanumeric characters and underscores
+        var usernameRegex = /^[a-zA-Z0-9_]+$/;
+
+        // Regular expression for password with at least one uppercase, one lowercase, one digit, and one special character
+        var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/;
+
+        if (!usernameRegex.test(username)) {
+          alert("Username can only contain alphanumeric characters and underscores");
+          return false;
+        }
+
+        if (!passwordRegex.test(password)) {
+          alert("Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character");
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+  </body>
+</html>
